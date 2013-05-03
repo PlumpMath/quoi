@@ -28,6 +28,39 @@
 }"})
   #[span ^{:id "ajax_content"}]
   #[h2 "Comet demo"]
+  #[pre #[code
+"
+; app.clp
+(def sockets ())
+
+(quoi#comet-server nil 9091
+  (fn [socket]
+    (if (> (length sockets) 10000)
+      (begin
+        (quoi#socket-destroy socket))
+      (begin
+        (set! sockets (cons socket sockets))
+        (quoi#socket-on-read socket
+          (fn [data]
+            (map 
+              (fn [s]
+                (quoi#socket-send s data))
+               sockets)))))))
+
+------------------------------
+
+// html javascript
+  var socket = new WebSocket('ws://localhost:9091');
+  socket.onopen = function(){
+  };
+  socket.onmessage = function(evt){
+    $('#comet_msg').html(evt.data);
+  };
+  $('#comet_submit').on('click', function(){
+    socket.send($('#comet_input').val());
+  });
+
+"]]
   #[input ^{:type "text" :id "comet_input"}]
   #[input ^{:type "submit" :id "comet_submit" :value "submit"}]
   #[br] #[span "broadcast: "]
