@@ -1,14 +1,14 @@
 #[span
   menu
-  #[h3 "What is Quoi?"]
+  #[h2 "What is Quoi?"]
   #[p "Quoi is a simple web framework by CljPerl."]
-  #[h3 "What are special?"]
+  #[h2 "What are special?"]
   (quoi#sortable-table
     ["Key featrues"]
     ["Progromming in Lisp but seamless connection with Perl."]
     ["Native xml form of CljPerl makes web template easy."]
     ["Ajax/Comet supports."])
-  #[h4 "Quoi app file"]
+  #[h2 "Quoi app file"]
   #[pre #[code
 "; load quoi
 (require quoi)
@@ -27,13 +27,13 @@
 
 (quoi#start {:port 9090})
 "]]
-  #[h4 "Quoi html template file"]
+  #[h2 "Quoi html template file"]
   #[pre #[code
 "
 #[span
   #[h1 \"hello world\"]
   menu]
 "]]
-  #[h4 "Run quoi app"]
+  #[h2 "Run quoi app"]
   #[pre #[code "cljp app.clp"]]
   ]

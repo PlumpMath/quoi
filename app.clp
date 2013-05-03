@@ -3,6 +3,7 @@
 (require quoi/table)
 (require quoi/default_template)
 (require quoi/ajax)
+(require quoi/comet)
 
 (def alist (list "a" "b" "c"))
 
@@ -50,5 +51,17 @@
 
 (quoi#page "/$"
   (quoi#default-template title (quoi#file "index.clp")))
+
+(def sockets ())
+
+(quoi#comet-server nil 9091
+  (fn [socket]
+    (set! sockets (cons socket sockets))
+    (quoi#socket-on-read socket
+       (fn [data]
+          (map 
+            (fn [s]
+              (quoi#socket-send s data))
+             sockets)))))
 
 (quoi#start {:port 9090})
