@@ -56,12 +56,16 @@
 
 (quoi#comet-server nil 9091
   (fn [socket]
-    (set! sockets (cons socket sockets))
-    (quoi#socket-on-read socket
-       (fn [data]
-          (map 
-            (fn [s]
-              (quoi#socket-send s data))
-             sockets)))))
+    (if (> (length sockets) 10000)
+      (begin
+        (quoi#socket-destroy socket))
+      (begin
+        (set! sockets (cons socket sockets))
+        (quoi#socket-on-read socket
+          (fn [data]
+            (map 
+              (fn [s]
+                (quoi#socket-send s data))
+               sockets)))))))
 
 (quoi#start {:port 9090})
