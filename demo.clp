@@ -71,10 +71,11 @@
   socket.onopen = function(){
   };
   socket.onmessage = function(evt){
-    $('#comet_msg').html(evt.data);
+    $('#comet_msg').html('<p>' + evt.data + '</p>' + $('#comet_msg').html());
   };
   $('#comet_submit').on('click', function(){
     socket.send($('#comet_input').val());
+    $('#comet_input').val(\"\");
   });
 "
   ]
