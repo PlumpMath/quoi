@@ -11,3 +11,6 @@ This is a demo/template.
  * cpan .
  * ./cljp app.clp
 
+Default, it's http://localhost:9090
+
+
