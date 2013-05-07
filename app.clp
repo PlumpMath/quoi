@@ -52,20 +52,19 @@
 (quoi#page "/$"
   (quoi#default-template title (quoi#file "index.clp")))
 
-(def sockets ())
+(def sockets {})
 
 (quoi#comet-server nil 9091 
   (fn [socket]
-    (if (> (length sockets) 10000)
-      (begin
-        (quoi#socket-destroy socket))
-      (begin
-        (set! sockets (cons socket sockets))
-        (quoi#socket-on-read socket
-          (fn [data]
-            (map 
-              (fn [s]
-                (quoi#socket-send s data))
-               sockets)))))))
+     (#:(object-id socket) sockets socket)
+     (quoi#socket-on-read socket
+       (fn [data]
+         (map 
+           (fn [s]
+             (let [socket (#:s sockets)] 
+               (if (eq (perlobj-type socket) "AnyEvent::Handle::destroyed")
+                 (#:s sockets nil)
+                 (quoi#socket-send socket data))))
+            (keys sockets))))))
 
 (quoi#start {:port 9090})

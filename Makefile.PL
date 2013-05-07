@@ -11,7 +11,7 @@ WriteMakefile(
 		          "AnyEvent::HTTPD" => 0.93,
 		          "AnyEvent::DBI" => 2.3,
 		          "URI" => 1.60,
-		          "CljPerl" => 0.06}, # e.g., Module::Name => 1.1
+		          "CljPerl" => 0.09},
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (AUTHOR         => 'Wei Hu <huwei04@hotmail.com>') : ()),
 );
