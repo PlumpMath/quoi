@@ -54,7 +54,7 @@
 
 (def sockets {})
 
-(quoi#comet-server nil 9091 
+(quoi#comet-server nil "http" 
   (fn [socket]
      (#:(object-id socket) sockets socket)
      (quoi#socket-on-read socket

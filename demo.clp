@@ -50,7 +50,7 @@
 ------------------------------
 
 // html javascript
-  var socket = new WebSocket('ws://localhost:9091');
+  var socket = new WebSocket('ws://localhost');
   socket.onopen = function(){
   };
   socket.onmessage = function(evt){
@@ -67,7 +67,7 @@
   #[span ^{:id "comet_msg"}]
   #[script
 "
-  var socket = new WebSocket('ws://localhost:9091');
+  var socket = new WebSocket('ws://localhost');
   socket.onopen = function(){
   };
   socket.onmessage = function(evt){
